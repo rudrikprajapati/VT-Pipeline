@@ -33,9 +33,5 @@ COPY --from=builder /app/.env .
 # Expose the port the app runs on
 EXPOSE 8081
 
-# Health check
-HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=5 \
-    CMD curl -f http://localhost:8081/health || exit 1
-
 # Command to run the application
 CMD ["./main"]

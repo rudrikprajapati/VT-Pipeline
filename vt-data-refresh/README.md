@@ -1,12 +1,11 @@
 # VirusTotal Data Refresh Service
 
-This service is responsible for fetching and refreshing data from the VirusTotal API and storing it in a PostgreSQL database. It also maintains a Redis cache for frequently accessed data.
+This service is responsible for fetching and refreshing data from the VirusTotal API and storing it in a PostgreSQL database.
 
 ## Features
 
 - Fetches IP and domain data from VirusTotal API
 - Stores data in PostgreSQL database
-- Caches results in Redis
 - Automatically refreshes stale data (older than 24 hours)
 - Rate limiting to respect VirusTotal API limits
 
@@ -24,18 +23,18 @@ The service can be configured using environment variables:
 - `POSTGRES_USER`: PostgreSQL user (default: postgres)
 - `POSTGRES_PASSWORD`: PostgreSQL password (default: postgres)
 - `POSTGRES_DB`: PostgreSQL database name (default: vtdb)
-- `REDIS_HOST`: Redis host (default: redis)
-- `REDIS_PORT`: Redis port (default: 6379)
 - `VT_API_KEY`: VirusTotal API key (required)
 
 ## Running the Service
 
 1. Set your VirusTotal API key:
+
    ```bash
    export VT_API_KEY=your_api_key_here
    ```
 
 2. Start the service using Docker Compose:
+
    ```bash
    docker-compose up -d
    ```
@@ -50,11 +49,13 @@ The service can be configured using environment variables:
 To build and run the service locally:
 
 1. Install dependencies:
+
    ```bash
    go mod download
    ```
 
 2. Build the service:
+
    ```bash
    go build -o vt-data-refresh ./cmd/main.go
    ```
@@ -82,11 +83,3 @@ The service follows a simple architecture:
 - `models/`: Data models
 - `repositories/`: Database operations
 - `services/`: Business logic and API interactions
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request 

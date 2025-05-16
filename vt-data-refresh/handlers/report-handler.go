@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"vt-data-refresh/config"
-	"vt-data-refresh/redis"
 	"vt-data-refresh/services"
 
 	"github.com/gin-gonic/gin"
@@ -13,17 +12,15 @@ import (
 
 // ReportHandler handles report requests for domains and IP addresses
 type ReportHandler struct {
-	db          *sqlx.DB
-	redisClient *redis.Client
-	cfg         *config.Config
+	db  *sqlx.DB
+	cfg *config.Config
 }
 
 // NewReportHandler creates a new ReportHandler instance
-func NewReportHandler(db *sqlx.DB, redisClient *redis.Client, cfg *config.Config) *ReportHandler {
+func NewReportHandler(db *sqlx.DB, cfg *config.Config) *ReportHandler {
 	return &ReportHandler{
-		db:          db,
-		redisClient: redisClient,
-		cfg:         cfg,
+		db:  db,
+		cfg: cfg,
 	}
 }
 

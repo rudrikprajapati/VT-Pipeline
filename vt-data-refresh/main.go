@@ -5,7 +5,6 @@ import (
 	"vt-data-refresh/config"
 	"vt-data-refresh/cron"
 	"vt-data-refresh/db"
-	"vt-data-refresh/redis"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,11 +19,9 @@ func main() {
 	dbConn := db.InitDB(cfg.Database.URL)
 
 	// Initialize Redis client
-	redisClient, err := redis.NewRedisClient(cfg.Redis.URL, cfg.Redis.Password)
 	if err != nil {
 		panic("Failed to initialize Redis client: " + err.Error())
 	}
-	defer redisClient.Close()
 
 	// Initialize and start cron service
 	cronService := cron.NewCronService(cfg)
@@ -35,7 +32,7 @@ func main() {
 	if err := r.SetTrustedProxies([]string{"127.0.0.1"}); err != nil {
 		panic("Failed to set trusted proxies: " + err.Error())
 	}
-	api.SetupRoutes(r, dbConn, redisClient, cfg)
+	api.SetupRoutes(r, dbConn, cfg)
 
 	if err := r.Run(":" + cfg.Server.Port); err != nil {
 		panic("Failed to start server: " + err.Error())
