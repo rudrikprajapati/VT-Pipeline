@@ -3,6 +3,7 @@ package main
 import (
 	"vt-data-refresh/api"
 	"vt-data-refresh/config"
+	"vt-data-refresh/cron"
 	"vt-data-refresh/db"
 	"vt-data-refresh/redis"
 
@@ -24,6 +25,11 @@ func main() {
 		panic("Failed to initialize Redis client: " + err.Error())
 	}
 	defer redisClient.Close()
+
+	// Initialize and start cron service
+	cronService := cron.NewCronService(cfg)
+	cronService.Start()
+	defer cronService.Stop()
 
 	r := gin.Default()
 	if err := r.SetTrustedProxies([]string{"127.0.0.1"}); err != nil {
