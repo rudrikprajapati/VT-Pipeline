@@ -40,8 +40,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-      vt-data-api:
-        condition: service_healthy
     environment:
       - DB_URL=postgres://vt_data_pipeline:vt_data_pipeline_password@postgres:5432/vt_data_pipeline?sslmode=disable
       - VT_API_KEY=7c155eaab2d47e2d5df8b0ee25a5c80647bd30e37ab37c43adb635b0cd6720a9
