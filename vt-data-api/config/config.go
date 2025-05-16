@@ -14,9 +14,6 @@ type Config struct {
 	Server struct {
 		Port string
 	}
-	VirusTotal struct {
-		APIKey string
-	}
 	Redis struct {
 		URL      string
 		Password string
@@ -41,12 +38,6 @@ func LoadConfig() (*Config, error) {
 	} else {
 		// default port
 		cfg.Server.Port = "8080"
-	}
-
-	if apiKey := os.Getenv("VT_API_KEY"); apiKey != "" {
-		cfg.VirusTotal.APIKey = apiKey
-	} else {
-		return nil, errors.New("VT_API_KEY is not set")
 	}
 
 	// Redis configuration

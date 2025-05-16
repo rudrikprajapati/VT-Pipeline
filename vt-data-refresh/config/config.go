@@ -36,7 +36,7 @@ func LoadConfig() (*Config, error) {
 		cfg.Server.Port = port
 	} else {
 		// default port
-		cfg.Server.Port = "8080"
+		cfg.Server.Port = "8081"
 	}
 
 	if apiKey := os.Getenv("VT_API_KEY"); apiKey != "" {
