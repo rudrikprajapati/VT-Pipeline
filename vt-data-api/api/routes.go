@@ -2,9 +2,9 @@ package api
 
 import (
 	"net/http"
-	"vt-data-pipeline/config"
-	"vt-data-pipeline/handlers"
-	"vt-data-pipeline/redis"
+	"vt-data-api/config"
+	"vt-data-api/handlers"
+	"vt-data-api/redis"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"

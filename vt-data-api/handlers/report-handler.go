@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"vt-data-pipeline/config"
-	"vt-data-pipeline/redis"
-	"vt-data-pipeline/services"
+	"vt-data-api/config"
+	"vt-data-api/redis"
+	"vt-data-api/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"

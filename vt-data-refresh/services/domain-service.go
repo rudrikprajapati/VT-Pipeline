@@ -15,47 +15,6 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-// RateLimiter represents a simple rate limiter for API requests
-type RateLimiter struct {
-	tokens   chan struct{}
-	interval time.Duration
-}
-
-// NewRateLimiter creates a new rate limiter with specified requests per minute
-func NewRateLimiter(requestsPerMinute int) *RateLimiter {
-	tokens := make(chan struct{}, requestsPerMinute)
-	// Initially fill the tokens
-	for i := 0; i < requestsPerMinute; i++ {
-		tokens <- struct{}{}
-	}
-
-	limiter := &RateLimiter{
-		tokens:   tokens,
-		interval: time.Minute / time.Duration(requestsPerMinute),
-	}
-
-	// Start token replenishment
-	go limiter.replenish()
-	return limiter
-}
-
-func (r *RateLimiter) replenish() {
-	ticker := time.NewTicker(r.interval)
-	defer ticker.Stop()
-
-	for range ticker.C {
-		select {
-		case r.tokens <- struct{}{}:
-		default:
-			// Channel is full, skip
-		}
-	}
-}
-
-func (r *RateLimiter) Wait() {
-	<-r.tokens
-}
-
 type DomainResult struct {
 	Domain *models.Domain
 	Error  error
@@ -64,7 +23,7 @@ type DomainResult struct {
 func FetchDomainVTReport(domains []string, reportType string, db *sqlx.DB, cfg *config.Config) ([]*models.Domain, error) {
 	results := make([]*models.Domain, 0)
 	resultChan := make(chan DomainResult)
-	limiter := NewRateLimiter(4) // 4 requests per minute as per VirusTotal limit
+	limiter := GetGlobalRateLimiter() // Use shared rate limiter
 
 	// Process domains concurrently with rate limiting
 	var wg sync.WaitGroup

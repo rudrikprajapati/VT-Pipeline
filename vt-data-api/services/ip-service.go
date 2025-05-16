@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"sync"
 	"time"
-	"vt-data-pipeline/config"
-	"vt-data-pipeline/models"
-	"vt-data-pipeline/redis"
-	"vt-data-pipeline/repositories"
+	"vt-data-api/config"
+	"vt-data-api/models"
+	"vt-data-api/redis"
+	"vt-data-api/repositories"
 
 	"github.com/jmoiron/sqlx"
 )

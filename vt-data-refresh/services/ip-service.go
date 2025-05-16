@@ -22,7 +22,7 @@ type IPResult struct {
 func FetchIPReport(ips []string, reportType string, db *sqlx.DB, cfg *config.Config) ([]*models.IPAddress, error) {
 	results := make([]*models.IPAddress, 0)
 	resultChan := make(chan IPResult)
-	limiter := NewRateLimiter(4) // 4 requests per minute as per VirusTotal limit
+	limiter := GetGlobalRateLimiter() // Use shared rate limiter
 
 	// Process IPs concurrently with rate limiting
 	var wg sync.WaitGroup

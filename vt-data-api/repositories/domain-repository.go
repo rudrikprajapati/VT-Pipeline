@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"vt-data-pipeline/models"
+	"vt-data-api/models"
 
 	"github.com/jmoiron/sqlx"
 )

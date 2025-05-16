@@ -1,4 +1,4 @@
-module vt-data-pipeline
+module vt-data-api
 
 go 1.22
 

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"vt-data-pipeline/api"
-	"vt-data-pipeline/config"
-	"vt-data-pipeline/db"
-	"vt-data-pipeline/redis"
+	"vt-data-api/api"
+	"vt-data-api/config"
+	"vt-data-api/db"
+	"vt-data-api/redis"
 
 	"github.com/gin-gonic/gin"
 )
